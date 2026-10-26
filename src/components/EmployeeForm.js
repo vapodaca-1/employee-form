@@ -1,16 +1,30 @@
-import React from 'react';
-import '../EmployeeForm.css';
+import React from "react"; 
+import './EmployeeForm.css';
 
 class EmployeeForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
-      email: '',
-      title: '',
-      department: ''
+      name: "",
+      email: "",
+      title: "",
+      department: ""
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.employeeToEdit &&
+      this.props.employeeToEdit !== prevProps.employeeToEdit
+    ) {
+      this.setState({
+        name: this.props.employeeToEdit.name,
+        email: this.props.employeeToEdit.email,
+        title: this.props.employeeToEdit.title,
+        department: this.props.employeeToEdit.department
+      });
+    }
   }
 
   handleChange = (event) => {
@@ -22,20 +36,31 @@ class EmployeeForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log('Employee Information:', this.state);
+    const employee = {
+      name: this.state.name,
+      email: this.state.email,
+      title: this.state.title,
+      department: this.state.department
+    };
+
+    this.props.addEmployee(employee);
 
     this.setState({
-      name: '',
-      email: '',
-      title: '',
-      department: ''
+      name: "",
+      email: "",
+      title: "",
+      department: ""
     });
   };
 
-  render() {
+ render() {
     return (
       <div className="employee-form-container">
-        <h2>Employee Form</h2>
+        <h2>
+          {this.props.employeeToEdit
+            ? "Edit Employee"
+            : "Add Employee"}
+        </h2>
 
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -45,6 +70,7 @@ class EmployeeForm extends React.Component {
               name="name"
               value={this.state.name}
               onChange={this.handleChange}
+              required
             />
           </div>
 
@@ -55,6 +81,7 @@ class EmployeeForm extends React.Component {
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
+              required
             />
           </div>
 
@@ -65,6 +92,7 @@ class EmployeeForm extends React.Component {
               name="title"
               value={this.state.title}
               onChange={this.handleChange}
+              required
             />
           </div>
 
@@ -75,10 +103,15 @@ class EmployeeForm extends React.Component {
               name="department"
               value={this.state.department}
               onChange={this.handleChange}
+              required
             />
           </div>
 
-          <button type="submit">Submit</button>
+          <button type="submit">
+            {this.props.employeeToEdit
+              ? "Update Employee"
+              : "Add Employee"}
+          </button>
         </form>
       </div>
     );

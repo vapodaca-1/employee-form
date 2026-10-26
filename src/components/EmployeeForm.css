@@ -1,9 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
 .employee-form-container {
   width: 500px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
 }
 
 .employee-form-container h2 {
@@ -17,18 +23,23 @@
 .employee-form-container label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .employee-form-container input {
   width: 100%;
   padding: 8px;
-  box-sizing: border-box;
 }
 
 .employee-form-container button {
-  padding: 10px 20px;
-  background-color: #0078d4;
+  width: 100%;
+  padding: 10px;
+  background-color: #1e3a8a;
   color: white;
   border: none;
   cursor: pointer;
+}
+
+.employee-form-container button:hover {
+  background-color: #15306e;
 }

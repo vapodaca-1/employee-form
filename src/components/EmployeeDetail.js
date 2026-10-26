@@ -1,38 +1,24 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import '../EmployeeForm.css';
 
-function EmployeeDetail(props) {
-  // grab the id from the URL
+function EmployeeDetail({ employees }) {
   const { id } = useParams();
-  
-  // find that employee by id
-  const employee = props.employees.find((employee) => employee.EmployeeId === parseInt(id));
-  const { EmployeeId, name, email, phone } = employee || {}; // Provide fallback object if employee is undefined
 
-  // render an HTML with that employees information
+  const employee = employees.find(
+    (emp) => emp.employeeId === Number(id)
+  );
+
+  if (!employee) {
+    return <h2>Employee not found</h2>;
+  }
+
   return (
-    <div className="employee-detail">
-      <table>
-        <tbody>
-          <tr>
-            <td><label>Employee ID: </label></td>
-            <td>{EmployeeId}</td>
-          </tr>
-          <tr>
-            <td><label>Name: </label></td>
-            <td>{name}</td>
-          </tr>
-          <tr>
-            <td><label>Email: </label></td>
-            <td>{email}</td>
-          </tr>
-          <tr>
-            <td><label>Phone: </label></td>
-            <td>{phone}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div>
+      <h2>{employee.name}</h2>
+      <p>Email: {employee.email}</p>
+      <p>Title: {employee.title}</p>
+      <p>Department: {employee.department}</p>
+      <p>Employee ID: {employee.employeeId}</p>
     </div>
   );
 }
